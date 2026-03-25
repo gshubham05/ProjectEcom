@@ -9,16 +9,31 @@ function AllProducts() {
       <div className="flex">
         <div className="left pt-2 fixed  top-[30%] w-[20%] h-[50vh]">
           <div className="flex flex-col gap-2 justify-start pl-2">
-          <h1 className="font-semibold text-2xl mt-2">Category</h1>
-            <label htmlFor=""><input className="me-2" type="checkbox" value='Men' /> Men</label>
-            <label htmlFor=""><input className="me-2" type="checkbox" value='Women' /> Women</label>
-            <label htmlFor=""><input className="me-2" type="checkbox" value='Kids' /> Kids</label>
+            <h1 className="font-semibold text-2xl mt-2">Category</h1>
+            <label htmlFor="">
+              <input className="me-2" type="checkbox" value="Men" /> Men
+            </label>
+            <label htmlFor="">
+              <input className="me-2" type="checkbox" value="Women" /> Women
+            </label>
+            <label htmlFor="">
+              <input className="me-2" type="checkbox" value="Kids" /> Kids
+            </label>
           </div>
           <div className="flex flex-col gap-2 justify-start pl-2">
-          <h1 className="font-semibold text-2xl mt-2">Sub Category</h1>
-            <label htmlFor=""><input className="me-2" type="checkbox" value='Topwear' />Topwear</label>
-            <label htmlFor=""><input className="me-2" type="checkbox" value='Bottomwear' />Bottomwear</label>
-            <label htmlFor=""><input className="me-2" type="checkbox" value='Winterwear' />Winterwear</label>
+            <h1 className="font-semibold text-2xl mt-2">Sub Category</h1>
+            <label htmlFor="">
+              <input className="me-2" type="checkbox" value="Topwear" />
+              Topwear
+            </label>
+            <label htmlFor="">
+              <input className="me-2" type="checkbox" value="Bottomwear" />
+              Bottomwear
+            </label>
+            <label htmlFor="">
+              <input className="me-2" type="checkbox" value="Winterwear" />
+              Winterwear
+            </label>
           </div>
         </div>
         <div className="right ml-[300px] w-[75%]">
@@ -43,6 +58,7 @@ function AllProducts() {
             {data.map((obj, index) => (
               <div>
                 <Cards
+                  id={obj._id}
                   index={index}
                   image={obj.image[0]}
                   price={obj.price}

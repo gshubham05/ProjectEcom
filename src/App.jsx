@@ -7,6 +7,7 @@ import Contact from "./pages/Contact";
 import Login from "./pages/Login";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import Product from "./pages/Product";
 
 function App() {
   return (
@@ -20,6 +21,8 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/login" element={<Login />} />
           <Route path="/products" element={<AllProducts />} />
+          {/* dynamic Routing */}
+          <Route path="/products/:pid" element={<Product />} />
           <Route path="/contact" element={<Contact />} />
         </Routes>
         <Footer />
