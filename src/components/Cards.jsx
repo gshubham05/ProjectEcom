@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 function Cards({ index, image, price, name, id }) {
-  console.log(id);
+  // console.log(id);
   return (
     <Link to={`/products/${id}`} key={index}>
       <div className="overflow-hidden">

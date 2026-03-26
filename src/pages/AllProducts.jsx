@@ -1,9 +1,24 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { products } from "../assets/assets/assets";
 import Cards from "../components/Cards";
 
 function AllProducts() {
   const [data, setData] = useState(products);
+  const [category, setCategory] = useState([]);
+  const toggleCategory = (event) => {
+    let v = event.target.value;
+    setCategory((i) => (i.includes(v) ? i.filter((o) => o != v) : [...i, v]));
+  };
+  useEffect(() => {
+
+    let updateProducts = products
+    if(category.length>0){
+      let d = updateProducts.filter((i)=>category.includes(i.category))
+      setData(d)
+    }
+
+    
+  }, [category]);
   return (
     <div>
       <div className="flex">
@@ -11,13 +26,31 @@ function AllProducts() {
           <div className="flex flex-col gap-2 justify-start pl-2">
             <h1 className="font-semibold text-2xl mt-2">Category</h1>
             <label htmlFor="">
-              <input className="me-2" type="checkbox" value="Men" /> Men
+              <input
+                onChange={toggleCategory}
+                className="me-2"
+                type="checkbox"
+                value="Men"
+              />{" "}
+              Men
             </label>
             <label htmlFor="">
-              <input className="me-2" type="checkbox" value="Women" /> Women
+              <input
+                onChange={toggleCategory}
+                className="me-2"
+                type="checkbox"
+                value="Women"
+              />{" "}
+              Women
             </label>
             <label htmlFor="">
-              <input className="me-2" type="checkbox" value="Kids" /> Kids
+              <input
+                onChange={toggleCategory}
+                className="me-2"
+                type="checkbox"
+                value="Kids"
+              />{" "}
+              Kids
             </label>
           </div>
           <div className="flex flex-col gap-2 justify-start pl-2">
@@ -56,10 +89,9 @@ function AllProducts() {
           </div>
           <div className="flex justify-center items-center flex-wrap gap-4">
             {data.map((obj, index) => (
-              <div>
+              <div key={index}>
                 <Cards
                   id={obj._id}
-                  index={index}
                   image={obj.image[0]}
                   price={obj.price}
                   name={obj.name}
