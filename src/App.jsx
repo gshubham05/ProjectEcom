@@ -8,6 +8,7 @@ import Login from "./pages/Login";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Product from "./pages/Product";
+import Concept from "./Concept";
 
 function App() {
   return (
@@ -22,7 +23,9 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/products" element={<AllProducts />} />
           {/* dynamic Routing */}
+
           <Route path="/products/:pid" element={<Product />} />
+          <Route path="/:id" element={<Concept />} />
           <Route path="/contact" element={<Contact />} />
         </Routes>
         <Footer />

@@ -5,20 +5,67 @@ import Cards from "../components/Cards";
 function AllProducts() {
   const [data, setData] = useState(products);
   const [category, setCategory] = useState([]);
+  const [subCategory, setSubCategory] = useState([]);
+  const [sortPrice, setSortPrice] = useState("relevant");
+
+  const [searchBar1, setSearchBar1] = useState("");
+
   const toggleCategory = (event) => {
     let v = event.target.value;
     setCategory((i) => (i.includes(v) ? i.filter((o) => o != v) : [...i, v]));
   };
-  useEffect(() => {
+  const toggleSubCategory = (event) => {
+    // console.log('hi')
+    let v = event.target.value;
+    console.log(v);
 
-    let updateProducts = products
-    if(category.length>0){
-      let d = updateProducts.filter((i)=>category.includes(i.category))
-      setData(d)
+    setSubCategory((i) =>
+      i.includes(v) ? i.filter((o) => o != v) : [...i, v],
+    );
+  };
+
+  const sorting = (event) => {
+    console.log("sorting Function : ", event.target.value);
+    setSortPrice(event.target.value);
+  };
+
+ 
+  useEffect(() => {
+    let updateProducts = [...products];
+    // console.log("sort Price before : ", sortPrice);
+    if (category.length > 0) {
+      updateProducts = updateProducts.filter((i) =>
+        category.includes(i.category),
+      );
+    }
+    if (subCategory.length > 0) {
+      // console.log(subCategory);
+      updateProducts= updateProducts.filter((i) =>
+        subCategory.includes(i.subCategory),
+      );
+     
+      // console.log(updateProducts);
     }
 
-    
-  }, [category]);
+    if (searchBar1) {
+      updateProducts = updateProducts.filter((i) =>
+        i.name.toUpperCase().includes(searchBar1),
+      );
+
+    }
+
+    if (sortPrice == "low") {
+      // console.log("sort Price low : ", sortPrice);
+      updateProducts = updateProducts.sort((a, b) => a.price - b.price);
+      // console.log("sort Price low : ", updateProducts);
+    } else if (sortPrice == "high") {
+      // console.log("sort Price high : ", sortPrice);
+      updateProducts = updateProducts.sort((a, b) => b.price - a.price);
+      // console.log("sort Price high : ", updateProducts);
+    }
+    // console.log("updated Products ", updateProducts);
+    setData(updateProducts);
+  }, [category, subCategory, sortPrice, products, searchBar1]);
   return (
     <div>
       <div className="flex">
@@ -56,15 +103,30 @@ function AllProducts() {
           <div className="flex flex-col gap-2 justify-start pl-2">
             <h1 className="font-semibold text-2xl mt-2">Sub Category</h1>
             <label htmlFor="">
-              <input className="me-2" type="checkbox" value="Topwear" />
+              <input
+                onChange={toggleSubCategory}
+                className="me-2"
+                type="checkbox"
+                value="Topwear"
+              />
               Topwear
             </label>
             <label htmlFor="">
-              <input className="me-2" type="checkbox" value="Bottomwear" />
+              <input
+                onChange={toggleSubCategory}
+                className="me-2"
+                type="checkbox"
+                value="Bottomwear"
+              />
               Bottomwear
             </label>
             <label htmlFor="">
-              <input className="me-2" type="checkbox" value="Winterwear" />
+              <input
+                onChange={toggleSubCategory}
+                className="me-2"
+                type="checkbox"
+                value="Winterwear"
+              />
               Winterwear
             </label>
           </div>
@@ -74,13 +136,14 @@ function AllProducts() {
           <div className="flex items-center justify-start">
             <div className="search w-[80%] p-[10px] mb-[10px] ">
               <input
+                onChange={(event)=>setSearchBar1(event.target.value.toUpperCase())}
                 className="w-full outline-none p-2"
                 type="text"
                 placeholder="searh here..."
               />
             </div>
             <div className="sort mb-[10px] w-[25%]">
-              <select name="" id="" className="w-full p-2">
+              <select onChange={sorting} name="" id="" className="w-full p-2">
                 <option value="relevant">Sort</option>
                 <option value="low">Low</option>
                 <option value="high">High</option>
