@@ -6,6 +6,8 @@ function Product() {
   let { pid } = useParams();
   const [findProduct, setFindProduct] = useState(false);
   const [image, setImage] = useState(null);
+  const [size,setSize] = useState('')
+ 
   const fetchProduct = () => {
     let d = products.find((i) => i._id == pid);
     if (d) {
@@ -39,8 +41,10 @@ function Product() {
             <h1>{findProduct.description}</h1>
             <h1>${findProduct.price}</h1>
             {findProduct.sizes.map((obj, index) => (
-              <button className="p-2 cursor-pointer">{obj}</button>
+              <button onClick={()=>setSize(obj)} className={`${obj==size?"border border-red-500":''} p-2 cursor-pointer`}>{obj}</button>
             ))}
+            <br />
+            {size} 
           </div>
         </div>
       ) : (
