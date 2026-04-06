@@ -19,7 +19,7 @@ function RelatedProducts({ category, subcategory }) {
       <div className="flex flex-wrap gap-4 px-[5vw]">
         {relate.slice(0, 4).map((obj, index) => (
           <Cards
-            index={index}
+            key={index}
             image={obj.image[0]}
             price={obj.price}
             name={obj.name}

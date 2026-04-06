@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { ProductContext } from "../context/ProductContext";
 
 function Navbar() {
+  const{name,currency} = useContext(ProductContext)
   return (
     <div className="flex justify-between px-[7vw] py-4">
       <div className="">
         <Link to="/">
-          <h1 className="text-3xl">codewareIT</h1>
+          <h1 className="text-3xl">{currency} {name}</h1>
         </Link>
       </div>
 

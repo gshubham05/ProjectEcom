@@ -14,7 +14,7 @@ function App() {
   return (
     <div>
       {/* url */}
-
+    
       <BrowserRouter>
       <Navbar />
         <Routes>
