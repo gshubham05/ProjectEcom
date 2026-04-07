@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, Profiler, useEffect, useState } from "react";
 import { products } from "../assets/assets/assets";
 // createContext
 export let ProductContext = createContext();
@@ -9,11 +9,31 @@ function ProductProvider({ children }) {
   let name = "Codeware IT";
   let currency = "$";
   let [cartItems, setCartItems] = useState({});
+
+  const getCartTotal = () => {
+    let totalCount = 0;
+    for (let id in cartItems) {
+      console.log(id);
+      for (let size in cartItems[id]) {
+        console.log("sizes : ", size);
+        console.log("qnty : ", cartItems[id][size]);
+        totalCount += cartItems[id][size];
+      }
+    }
+    return totalCount;
+  };
+
+  // factoial 
+  // buzz number 
+  // harshad number  123 => 1 + 2 + 3 => 6 123/6 => 
+ 
+
   const obj = {
     name,
     currency,
     products,
     addToBag,
+    getCartTotal,
   };
 
   function addToBag(id, size) {
@@ -24,27 +44,21 @@ function ProductProvider({ children }) {
 
     if (cartData[id]) {
       if (cartData[id][size]) {
-        console.log("same size");
-        console.log(`id ${id} size ${size}`);
-        // cartData[id][size] = cartData[id][size] + 1
         cartData[id][size] += 1;
-        // console.log(cartItems)
       } else {
-        console.log(`id ${id} size ${size}`);
-        console.log("different size");
         cartData[id][size] = 1;
-        // console.log(cartItems)
       }
     } else {
       cartData[id] = {};
       cartData[id][size] = 1;
-      console.log(cartItems);
     }
     setCartItems(cartData);
+
   }
 
   useEffect(() => {
-    console.log(cartItems);
+    // console.log(cartItems)
+  
   }, [addToBag]);
   return (
     <ProductContext.Provider value={obj}>{children}</ProductContext.Provider>
