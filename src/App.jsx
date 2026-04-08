@@ -9,6 +9,7 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Product from "./pages/Product";
 import Concept from "./Concept";
+import Cart from "./pages/Cart";
 
 function App() {
   return (
@@ -25,7 +26,8 @@ function App() {
           {/* dynamic Routing */}
 
           <Route path="/products/:pid" element={<Product />} />
-          <Route path="/:id" element={<Concept />} />
+          <Route path="/cart" element={<Cart />} />
+          
           <Route path="/contact" element={<Contact />} />
         </Routes>
         <Footer />

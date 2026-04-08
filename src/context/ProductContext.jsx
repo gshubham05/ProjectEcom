@@ -23,16 +23,13 @@ function ProductProvider({ children }) {
     return totalCount;
   };
 
-  // factoial 
-  // buzz number 
-  // harshad number  123 => 1 + 2 + 3 => 6 123/6 => 
- 
-
+  
   const obj = {
     name,
     currency,
     products,
     addToBag,
+    cartItems,
     getCartTotal,
   };
 

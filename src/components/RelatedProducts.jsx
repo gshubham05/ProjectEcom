@@ -20,6 +20,7 @@ function RelatedProducts({ category, subcategory }) {
         {relate.slice(0, 4).map((obj, index) => (
           <Cards
             key={index}
+            id= {obj._id}
             image={obj.image[0]}
             price={obj.price}
             name={obj.name}
