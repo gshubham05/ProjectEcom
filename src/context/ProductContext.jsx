@@ -10,6 +10,10 @@ function ProductProvider({ children }) {
   let currency = "$";
   let [cartItems, setCartItems] = useState({});
 
+
+
+
+
   const getCartTotal = () => {
     let totalCount = 0;
     for (let id in cartItems) {
@@ -24,14 +28,7 @@ function ProductProvider({ children }) {
   };
 
   
-  const obj = {
-    name,
-    currency,
-    products,
-    addToBag,
-    cartItems,
-    getCartTotal,
-  };
+
 
   function addToBag(id, size) {
     if (!size) {
@@ -53,10 +50,35 @@ function ProductProvider({ children }) {
 
   }
 
+const updateQty = (id,size,qty)=>{
+  console.log(`id = ${id} size = ${size} qty = ${qty}`)
+  let c = structuredClone(cartItems)
+  console.log("cart items : ",c)
+  console.log("c[id] ",c[id])
+  c[id][size] = qty
+  console.log("after update ",c)
+  console.log("c[id][size] ",c[id][size])
+  setCartItems(c)
+}
+
+const abc=()=>{
+  console.log("del")
+}
+
+    const obj = {
+      updateQty,
+    name,
+    currency,
+    products,
+    addToBag,
+    cartItems,
+    getCartTotal,abc
+  };
+
   useEffect(() => {
     // console.log(cartItems)
   
-  }, [addToBag]);
+  }, [cartItems]);
   return (
     <ProductContext.Provider value={obj}>{children}</ProductContext.Provider>
   );
