@@ -4,7 +4,7 @@ import { ProductContext } from "../context/ProductContext";
 import { assets } from "../assets/assets/assets";
 
 function Navbar() {
-  const { name, currency,getCartTotal } = useContext(ProductContext);
+  const { name, currency,getCartCount } = useContext(ProductContext);
   return (
     <div className="flex justify-between px-[7vw] py-4">
       <div className="">
@@ -25,7 +25,7 @@ function Navbar() {
       <div className="flex gap-3">
         <div className="relative">
           <Link to="/cart"><img src={assets.cart_icon} className="w-6" alt="" /></Link>
-          <p className="absolute p-1 -bottom-[0px] -right-[8px] rounded-xl text-[12px] bg-black text-white">{getCartTotal()}</p>
+          <p className="absolute p-1 -bottom-[0px] -right-[8px] rounded-xl text-[12px] bg-black text-white">{getCartCount()}</p>
         </div>
         <Link to="/login">login</Link>
       </div>

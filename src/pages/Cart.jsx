@@ -1,24 +1,29 @@
 import React, { useContext, useEffect, useState } from "react";
 import { ProductContext } from "../context/ProductContext";
 import { assets } from "../assets/assets/assets";
+import CartTotal from "../components/CartTotal";
 
 function Cart() {
-  const { cartItems, products, currency,updateQty,abc } = useContext(ProductContext);
+  const { cartItems, products, currency, updateQty, getCartTotal } =
+    useContext(ProductContext);
   const [cartData, setCartData] = useState([]);
-  console.log(cartItems);
+  // console.log(cartItems);
   useEffect(() => {
     const tempData = [];
     for (let id in cartItems) {
       for (let size in cartItems[id]) {
-        tempData.push({
-          _id: id,
-          size: size,
-          quantity: cartItems[id][size],
-        });
+        if (cartItems[id][size] > 0) {
+          tempData.push({
+            _id: id,
+            size: size,
+            quantity: cartItems[id][size],
+          });
+        }
       }
     }
-    console.log(tempData);
+    // console.log(tempData);
     setCartData(tempData);
+    getCartTotal();
   }, [cartItems]);
   return (
     <div>
@@ -41,12 +46,32 @@ function Cart() {
             </div>
 
             <div className="">
-              <input onChange={(e)=>e.target.value==" " || e.target.value =="0"? null :updateQty(item._id,item.size,Number(e.target.value))} min={1} defaultValue={item.quantity} type="number" className="border" />
+              <input
+                onChange={(e) =>
+                  e.target.value == " " || e.target.value == "0"
+                    ? null
+                    : updateQty(item._id, item.size, Number(e.target.value))
+                }
+                min={1}
+                defaultValue={item.quantity}
+                type="number"
+                className="border"
+              />
             </div>
-            <img onClick={()=>updateQty(item._id,item.size,0)} className="w-5 cursor-pointer" src={assets.bin_icon} alt="" />
+            <img
+              onClick={() => updateQty(item._id, item.size, 0)}
+              className="w-5 cursor-pointer"
+              src={assets.bin_icon}
+              alt=""
+            />
           </div>
         );
       })}
+
+      <div className="">
+        <h1>Cart Total</h1>
+        {getCartTotal() == 0 ? '': <CartTotal />}
+      </div>
     </div>
   );
 }

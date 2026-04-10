@@ -14,7 +14,7 @@ function ProductProvider({ children }) {
 
 
 
-  const getCartTotal = () => {
+  const getCartCount = () => {
     let totalCount = 0;
     for (let id in cartItems) {
       console.log(id);
@@ -50,15 +50,23 @@ function ProductProvider({ children }) {
 
   }
 
-const updateQty = (id,size,qty)=>{
-  console.log(`id = ${id} size = ${size} qty = ${qty}`)
-  let c = structuredClone(cartItems)
-  console.log("cart items : ",c)
-  console.log("c[id] ",c[id])
-  c[id][size] = qty
-  console.log("after update ",c)
-  console.log("c[id][size] ",c[id][size])
-  setCartItems(c)
+const updateQty = (itemId,size,quantity)=>{
+let cartData = structuredClone(cartItems);
+    cartData[itemId][size] = quantity;
+    setCartItems(cartData);
+}
+
+const getCartTotal=()=>{
+  let totalAmount = 0
+  for(let id in cartItems){
+    let itemInfo = products.find((i)=>i._id == id)
+    for (let size in cartItems[id]){
+      if(cartItems[id][size]){
+        totalAmount += itemInfo.price * cartItems[id][size]
+      }
+    }
+  }
+  return totalAmount
 }
 
 const abc=()=>{
@@ -69,10 +77,11 @@ const abc=()=>{
       updateQty,
     name,
     currency,
+    getCartTotal,
     products,
     addToBag,
     cartItems,
-    getCartTotal,abc
+    getCartCount,abc
   };
 
   useEffect(() => {
