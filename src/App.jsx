@@ -10,13 +10,14 @@ import Footer from "./components/Footer";
 import Product from "./pages/Product";
 import Concept from "./Concept";
 import Cart from "./pages/Cart";
+import PlaceOrder from "./pages/PlaceOrder";
 
 function App() {
   return (
     <div>
       {/* url */}
     
-      <BrowserRouter>
+    
       <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
@@ -27,11 +28,12 @@ function App() {
 
           <Route path="/products/:pid" element={<Product />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/place-order" element={<PlaceOrder />} />
           
           <Route path="/contact" element={<Contact />} />
         </Routes>
         <Footer />
-      </BrowserRouter>
+     
     </div>
   );
 }

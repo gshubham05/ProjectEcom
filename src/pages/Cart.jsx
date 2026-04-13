@@ -4,7 +4,7 @@ import { assets } from "../assets/assets/assets";
 import CartTotal from "../components/CartTotal";
 
 function Cart() {
-  const { cartItems, products, currency, updateQty, getCartTotal } =
+  const { cartItems, products,navigate, currency, updateQty, getCartTotal } =
     useContext(ProductContext);
   const [cartData, setCartData] = useState([]);
   // console.log(cartItems);
@@ -72,6 +72,7 @@ function Cart() {
         <h1>Cart Total</h1>
         {getCartTotal() == 0 ? '': <CartTotal />}
       </div>
+      <button onClick={()=>navigate('/place-order')}>Order</button>
     </div>
   );
 }

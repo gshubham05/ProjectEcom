@@ -1,5 +1,6 @@
 import { createContext, Profiler, useEffect, useState } from "react";
 import { products } from "../assets/assets/assets";
+import { useNavigate } from "react-router-dom";
 // createContext
 export let ProductContext = createContext();
 
@@ -9,10 +10,7 @@ function ProductProvider({ children }) {
   let name = "Codeware IT";
   let currency = "$";
   let [cartItems, setCartItems] = useState({});
-
-
-
-
+  let navigate = useNavigate();
 
   const getCartCount = () => {
     let totalCount = 0;
@@ -26,9 +24,6 @@ function ProductProvider({ children }) {
     }
     return totalCount;
   };
-
-  
-
 
   function addToBag(id, size) {
     if (!size) {
@@ -47,46 +42,46 @@ function ProductProvider({ children }) {
       cartData[id][size] = 1;
     }
     setCartItems(cartData);
-
   }
 
-const updateQty = (itemId,size,quantity)=>{
-let cartData = structuredClone(cartItems);
+  const updateQty = (itemId, size, quantity) => {
+    let cartData = structuredClone(cartItems);
     cartData[itemId][size] = quantity;
     setCartItems(cartData);
-}
+  };
 
-const getCartTotal=()=>{
-  let totalAmount = 0
-  for(let id in cartItems){
-    let itemInfo = products.find((i)=>i._id == id)
-    for (let size in cartItems[id]){
-      if(cartItems[id][size]){
-        totalAmount += itemInfo.price * cartItems[id][size]
+  const getCartTotal = () => {
+    let totalAmount = 0;
+    for (let id in cartItems) {
+      let itemInfo = products.find((i) => i._id == id);
+      for (let size in cartItems[id]) {
+        if (cartItems[id][size]) {
+          totalAmount += itemInfo.price * cartItems[id][size];
+        }
       }
     }
-  }
-  return totalAmount
-}
+    return totalAmount;
+  };
 
-const abc=()=>{
-  console.log("del")
-}
+  const abc = () => {
+    console.log("del");
+  };
 
-    const obj = {
-      updateQty,
+  const obj = {
+    updateQty,
+    navigate,
     name,
     currency,
     getCartTotal,
     products,
     addToBag,
     cartItems,
-    getCartCount,abc
+    getCartCount,
+    abc,
   };
 
   useEffect(() => {
     // console.log(cartItems)
-  
   }, [cartItems]);
   return (
     <ProductContext.Provider value={obj}>{children}</ProductContext.Provider>
